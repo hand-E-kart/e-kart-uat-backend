@@ -32,8 +32,9 @@ public class UserServiceImpl implements UserService {
 	        if (existing.isPresent()) {
 	        	throw new UserAlreadyExistsException("Email already Registered");
 	        }
+	        user.setRoleId(user.getRoleId());
 	        user.setCreatedDate(new Date());
-	        user.setId(user.getId());
+	        user.setUpdatedDate(new Date());
 	        userRepository.save(user);
 	        ApiResponse response = new ApiResponse(true, "User registered successfully", null);
 	        return ResponseEntity.status(HttpStatus.CREATED)

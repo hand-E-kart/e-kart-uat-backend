@@ -65,8 +65,10 @@ public class User {
 	@Column(name = "updated_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date updatedDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id")
+	@ManyToOne
+	@JoinColumn(name = "roleId", referencedColumnName = "id",insertable = false, updatable = false)
 	private Role role;
+	
+	private Long roleId;
 	
 }
