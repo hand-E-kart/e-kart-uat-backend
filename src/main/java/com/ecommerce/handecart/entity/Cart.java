@@ -40,10 +40,12 @@ public class Cart {
     @Column(nullable = false)
     private int quantity;
     
+    @Column(name = "created_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdDate;
 	
 	private Long createdBy;
 	
+	@Column(name = "updated_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date updatedDate;
 	
 	private Long updatedBy;

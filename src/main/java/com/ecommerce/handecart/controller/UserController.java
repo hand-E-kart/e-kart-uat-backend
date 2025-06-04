@@ -20,12 +20,18 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@RequestBody User user) {
+	public ResponseEntity<?> register(@RequestBody User user) {
 		return userService.register(user);
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody User user) {
+	public ResponseEntity<?> login(@RequestBody User user) {
 		return userService.login(user);
+	}
+	
+	@PostMapping("/forgotPassword")
+	public ResponseEntity<?> forgotPassword(@RequestBody User user){
+		
+		return null;
 	}
 }

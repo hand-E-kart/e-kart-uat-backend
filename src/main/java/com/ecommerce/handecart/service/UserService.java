@@ -1,13 +1,15 @@
 package com.ecommerce.handecart.service;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.ecommerce.handecart.entity.User;
 
+@Service
 public interface UserService {
 
-	ResponseEntity<String> register(User user);
+	ResponseEntity<?> register(User user);
 
-	ResponseEntity<String> login(User user);
+	ResponseEntity<?> login(User user);
 
 }

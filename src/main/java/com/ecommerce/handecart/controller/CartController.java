@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.handecart.entity.Cart;
+import com.ecommerce.handecart.entity.Product;
 import com.ecommerce.handecart.exception.ResourceNotFoundException;
 import com.ecommerce.handecart.service.CartService;
+import com.ecommerce.handekart.response.ApiResponse;
 
 @RestController
 @CrossOrigin("*")
@@ -37,9 +39,9 @@ public class CartController {
 	public ResponseEntity<?> getById(@PathVariable Long id){
 		try {
 			Cart cart = cartService.getById(id);
-			return ResponseEntity.ok(cart);
+			return ResponseEntity.ok(new ApiResponse(true, "Cart fetched successfully", cart));
 		}catch(ResourceNotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, e.getMessage(), null));
 		}
 	}
 	

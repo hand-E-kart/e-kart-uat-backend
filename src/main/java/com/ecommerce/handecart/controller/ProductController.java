@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.handecart.entity.Product;
 import com.ecommerce.handecart.exception.ResourceNotFoundException;
 import com.ecommerce.handecart.service.ProductService;
+import com.ecommerce.handekart.response.ApiResponse;
 
 @RestController
 @CrossOrigin("*")
@@ -37,14 +38,15 @@ public class ProductController {
 	public ResponseEntity<?> getById(@PathVariable Long id){
 		try {
 			Product product = productService.getById(id);
-			return ResponseEntity.ok(product);
+			return ResponseEntity.ok(new ApiResponse(true, "Product fetched successfully", product));
 		}catch(ResourceNotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse(false, e.getMessage(), null));
 		}
 	}
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<List<Product>> getAll(){
+	public ResponseEntity<?> getAll(){
 		List<Product> products=productService.getAll();
 		if(products.isEmpty()) {
 			return ResponseEntity.noContent().build();

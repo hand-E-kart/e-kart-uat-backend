@@ -40,10 +40,12 @@ public class Coupon {
     @Column(name = "usage_limit", nullable = false)
     private int usageLimit;
     
+    @Column(name = "created_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdDate;
 	
 	private Long createdBy;
 	
+	@Column(name = "updated_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date updatedDate;
 	
 	private Long updatedBy;

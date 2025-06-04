@@ -9,9 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.handecart.entity.Cart;
+import com.ecommerce.handecart.entity.Product;
 import com.ecommerce.handecart.exception.ResourceNotFoundException;
 import com.ecommerce.handecart.repository.CartRepository;
 import com.ecommerce.handecart.service.CartService;
+import com.ecommerce.handekart.response.ApiResponse;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -21,14 +23,15 @@ public class CartServiceImpl implements CartService{
 	private CartRepository cartRepository;
 	
 	@Override
-	public ResponseEntity<?> save(Cart cart) {
-		try {
-			Cart savedProduct = cartRepository.save(cart);
-			return ResponseEntity.ok(savedProduct);
-		}catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error saving product: " + e.getMessage());
-		}
+	public ResponseEntity<ApiResponse> save(Cart cart) {
+	    try {
+	        cartRepository.save(cart);
+	        ApiResponse response = new ApiResponse(true, "Cart saved successfully", null);
+	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	    } catch (Exception e) {
+	        ApiResponse errorResponse = new ApiResponse(false, "Error saving product: " + e.getMessage(), null);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
 	}
 
 	@Override

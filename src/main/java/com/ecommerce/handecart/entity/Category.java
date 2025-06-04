@@ -2,6 +2,7 @@ package com.ecommerce.handecart.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,10 +30,12 @@ public class Category {
 	
 	private String description;
 	
+	@Column(name = "created_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createdDate;
 	
 	private Long createdBy;
 	
+	@Column(name = "updated_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date updatedDate;
 	
 	private Long updatedBy;

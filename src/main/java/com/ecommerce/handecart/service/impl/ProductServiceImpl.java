@@ -12,6 +12,7 @@ import com.ecommerce.handecart.entity.Product;
 import com.ecommerce.handecart.exception.ResourceNotFoundException;
 import com.ecommerce.handecart.repository.ProductRepository;
 import com.ecommerce.handecart.service.ProductService;
+import com.ecommerce.handekart.response.ApiResponse;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -20,15 +21,15 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 	
 	@Override
-	public ResponseEntity<?> save(Product product) {
-		try {
-			Product savedProduct = productRepository.save(product);
-			return ResponseEntity.ok(savedProduct);
-		}catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error saving product: " + e.getMessage());
-		}
-		
+	public ResponseEntity<ApiResponse> save(Product product) {
+	    try {
+	        productRepository.save(product);
+	        ApiResponse response = new ApiResponse(true, "Product saved successfully", null);
+	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	    } catch (Exception e) {
+	        ApiResponse errorResponse = new ApiResponse(false, "Error saving product: " + e.getMessage(), null);
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
 	}
 
 	@Override

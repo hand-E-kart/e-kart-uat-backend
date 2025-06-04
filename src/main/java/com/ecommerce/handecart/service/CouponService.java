@@ -3,9 +3,11 @@ package com.ecommerce.handecart.service;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.ecommerce.handecart.entity.Coupon;
 
+@Service
 public interface CouponService {
 
 	ResponseEntity<?> save(Coupon coupon);

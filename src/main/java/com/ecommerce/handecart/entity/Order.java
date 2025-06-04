@@ -47,10 +47,12 @@ public class Order {
     @Column(name = "payment_status", nullable = false)
     private String paymentStatus;
 
+    @Column(name = "created_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdDate;
 	
 	private Long createdBy;
 	
+	@Column(name = "updated_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date updatedDate;
 	
 	private Long updatedBy;
