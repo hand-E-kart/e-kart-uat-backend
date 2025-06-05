@@ -30,13 +30,17 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "orderId", nullable = false,referencedColumnName="id", insertable= false, updatable=false)
     private Order order;
+    
+    private Long orderId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "productId", nullable = false,referencedColumnName="id", insertable= false, updatable=false)
     private Product product;
+    
+    private Long productId;
 
     @Column(nullable = false)
     private int quantity;

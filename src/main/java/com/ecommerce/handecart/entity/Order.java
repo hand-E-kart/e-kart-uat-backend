@@ -31,9 +31,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId", nullable = false,referencedColumnName="id", insertable= false, updatable=false)
     private User user;
+    
+    private Long userId;
 
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;

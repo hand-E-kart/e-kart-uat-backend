@@ -41,8 +41,10 @@ public class Product {
 	private String imageUrl;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "categoryId",referencedColumnName="id", insertable= false, updatable=false)
 	private Category category;
+	
+	private Long categoryId;
 	
 	@Column(name = "created_date", nullable = false, columnDefinition ="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createdDate;

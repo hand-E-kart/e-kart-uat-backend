@@ -1,5 +1,6 @@
 package com.ecommerce.handecart.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +24,26 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ResponseEntity<ApiResponse> save(Product product) {
 	    try {
-	        productRepository.save(product);
-	        ApiResponse response = new ApiResponse(true, "Product saved successfully", null);
-	        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	    	//for update
+	    	boolean isUpdate = false;
+	    	if(product.getId()!=null && product.getId() > 0) {
+	    		Product existingProduct = productRepository.findById(product.getId()).orElse(product);
+	    		if(existingProduct!=null) {
+	    			existingProduct.setDescription(product.getDescription());
+	    			existingProduct.setName(product.getName());
+	    			existingProduct.setPrice(product.getPrice());
+	    			existingProduct.setStock(product.getStock());
+	    			existingProduct.setUpdatedDate(new Date());
+	    			productRepository.save(existingProduct);
+	    			isUpdate= true;
+	    		}
+	    	}else {
+	    		product.setCreatedDate(new Date());
+		    	product.setUpdatedDate(new Date());
+		        productRepository.save(product);
+	    	}
+	    	ApiResponse response = new ApiResponse(true, isUpdate ? "Product updated successfully" : "Product saved successfully", null);
+	        return ResponseEntity.status(isUpdate ? HttpStatus.OK : HttpStatus.CREATED).body(response);
 	    } catch (Exception e) {
 	        ApiResponse errorResponse = new ApiResponse(false, "Error saving product: " + e.getMessage(), null);
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);

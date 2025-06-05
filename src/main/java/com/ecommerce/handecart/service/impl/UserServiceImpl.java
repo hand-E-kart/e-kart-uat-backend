@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
 	        if (existing.isPresent()) {
 	        	throw new UserAlreadyExistsException("Email already Registered");
 	        }
-	        user.setRoleId(user.getRoleId());
 	        user.setCreatedDate(new Date());
 	        user.setUpdatedDate(new Date());
 	        userRepository.save(user);
@@ -49,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	public ResponseEntity<?> login(User loginRequest) {
 	    try {
 	        Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());   
-	        if (user.isPresent() && user.get().getPassword().equalsIgnoreCase(loginRequest.getPassword())) {
+	        if (user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword())) {
 	            User userObj = user.get();
 	        	String token = jwtUtil.generateToken(user.get().getEmail());
 	        	Map<String, Object> payload = new HashMap<>();

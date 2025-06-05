@@ -29,9 +29,11 @@ public class Shipping {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false, unique = true)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "orderId", nullable = false, unique = true,referencedColumnName="id", insertable= false, updatable=false)
     private Order order;
+    
+    private Long orderId;
 
     @Column(name = "shipping_address", nullable = false, length = 500)
     private String shippingAddress;
