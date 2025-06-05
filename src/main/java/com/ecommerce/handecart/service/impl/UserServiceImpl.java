@@ -47,10 +47,11 @@ public class UserServiceImpl implements UserService {
 
 	public ResponseEntity<?> login(User loginRequest) {
 	    try {
-	        Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());   
+	        Optional<User> user = userRepository.findByEmail(loginRequest.getEmail());
+	        
 	        if (user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword())) {
 	            User userObj = user.get();
-	        	String token = jwtUtil.generateToken(user.get().getEmail());
+	        	String token = jwtUtil.generateToken(user.get().getEmail(),user.get().getRole().getName());
 	        	Map<String, Object> payload = new HashMap<>();
 	        	payload.put("token", token);
 	        	payload.put("user", userObj);
